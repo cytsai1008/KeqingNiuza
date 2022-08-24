@@ -26,7 +26,14 @@ namespace KeqingNiuza.View
             UserData = MainWindowViewModel.GetSelectedUserData();
             if (UserData == null || MainWindowViewModel.WishDataList == null || MainWindowViewModel.WishDataList.Count == 0)
             {
-                throw new NullReferenceException($"Uid{UserData.Uid}没有祈愿数据");
+                if (UserData == null)
+                {
+                    throw new NullReferenceException("未設置個人信息");
+                }
+                else
+                {
+                    throw new NullReferenceException($"Uid{UserData.Uid}没有祈愿数据");
+                }
             }
         }
 

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using Microsoft.International.Converters.TraditionalChineseToSimplifiedConverter;
 
 namespace KeqingNiuza.Core.Wish
 {
@@ -42,6 +43,7 @@ namespace KeqingNiuza.Core.Wish
                 data.Guarantee = i - tmp;
                 data.Number = i;
                 data.GuaranteeType = is_DaBaoDi ? "大保底" : "小保底";
+                data.Name = ChineseConverter.Convert(data.Name, ChineseConversionDirection.TraditionalToSimplified);
                 if (data.WishType == WishType.Permanent || data.WishType == WishType.Novice)
                 {
                     data.GuaranteeType = "保底内";
@@ -72,6 +74,7 @@ namespace KeqingNiuza.Core.Wish
                 {
                     if (data.WishType != WishType.Permanent && data.WishType != WishType.Novice)
                     {
+
                         var wishevent = WishEventList.Find(x =>
                             x.WishType == data.QueryType
                             && x.StartTime <= data.Time

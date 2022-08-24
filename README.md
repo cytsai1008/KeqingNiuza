@@ -33,3 +33,17 @@
 
 
 <img src="img/image-20211014080448738.png" alt="image-20211014080448738" width="400px" style="margin-left: 0;" />
+
+
+## 接替者備註：  
+
+### Notice:
+由於核心轉為.NET 6，因此請先前往 [.NET 6 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime) 下載最新版本，再使用本項目。
+
+### Todo:
+- [ ] 自動下載資源
+- [ ] 祈願導出修復 (Ex. 使用Proxy)
+- [ ] 清除已無用之資源
+- [ ] 移動dll至bin
+
+
