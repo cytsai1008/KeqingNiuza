@@ -56,7 +56,7 @@
                            Text="手动输入祈愿记录网址" />
                 <TextBlock Margin="0,4,0,5"
                            Foreground="Gray"
-                           Text="以 https 开头、以 #/log 结尾" />
+                           Text="以 https 开头、以 #/log 或 hk4e_global 结尾" />
                 <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
                     <TextBox x:Name="TextBox_InputUrl" Width="300" />
                     <Button x:Name="Button_InputUrl"

@@ -9,5 +9,5 @@ internal class Const
     public static JsonSerializerOptions JsonOptions = new()
         {Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true};
 
-    public static string UserDataPath { get; } = ".\\UserData";
+    public static string UserDataPath { get; } = "..\\UserData";
 }

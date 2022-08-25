@@ -18,7 +18,7 @@ public class WishLogExporter
 
     public WishLogExporter(string url)
     {
-        if (url.StartsWith("https://") && url.EndsWith("#/log"))
+        if (url.StartsWith("https://") && (url.EndsWith(@"hk4e_global") || url.EndsWith(@"#/log")))
         {
             authString = url.Substring(url.IndexOf('?')).Replace("#/log", "");
             HttpClient = new HttpClient();

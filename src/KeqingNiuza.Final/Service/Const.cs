@@ -19,9 +19,9 @@ internal class Const
     public static JsonSerializerOptions JsonOptions { get; } = new()
         {AllowTrailingCommas = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true};
 
-    public static string UserDataPath { get; } = ".\\UserData";
+    public static string UserDataPath { get; } = "..\\UserData";
 
-    public static string LogPath { get; } = ".\\Log";
+    public static string LogPath { get; } = "..\\Log";
 
     public static string UserId
     {
