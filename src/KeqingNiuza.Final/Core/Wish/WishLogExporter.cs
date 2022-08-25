@@ -23,7 +23,7 @@ public class WishLogExporter
             authString = url.Substring(url.IndexOf('?')).Replace("#/log", "");
             HttpClient = new HttpClient();
             if (url.Contains("webstatic-sea"))
-                baseRequestUrl = @"https://hk4e-api-os.mihoyo.com/event/gacha_info/api/getGachaLog";
+                baseRequestUrl = @"https://hk4e-api-os.hoyoverse.com/event/gacha_info/api/getGachaLog";
         }
         else
         {
