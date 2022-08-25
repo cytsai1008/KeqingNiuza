@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450"
@@ -74,9 +73,11 @@
                            Text="设置" />
                 <StackPanel Orientation="Horizontal">
                     <TextBlock VerticalAlignment="Center" Text="功能状态：" />
-                    <TextBlock VerticalAlignment="Center" Foreground="{Binding TextBlock_Color}" Text="{Binding StateText}">
+                    <TextBlock VerticalAlignment="Center" Foreground="{Binding TextBlock_Color}"
+                               Text="{Binding StateText}">
                         <TextBlock.ToolTip>
-                            <TextBlock Text="{Binding Tooltip_Content}" Visibility="{Binding Tooltip_Content, Converter={StaticResource Object2VisibilityConverter}}" />
+                            <TextBlock Text="{Binding Tooltip_Content}"
+                                       Visibility="{Binding Tooltip_Content, Converter={StaticResource Object2VisibilityConverter}}" />
                         </TextBlock.ToolTip>
                     </TextBlock>
                     <Button Name="Button_Restart"
@@ -143,7 +144,8 @@
                                           Minimum="-39"
                                           ShowClearButton="True"
                                           Value="{Binding NoteLevel, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{Binding NoteLevel, Converter={StaticResource NoteLevelToNoteStringConverter}}" />
+                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center"
+                                   Text="{Binding NoteLevel, Converter={StaticResource NoteLevelToNoteStringConverter}}" />
                     </StackPanel>
 
                 </Grid>
@@ -163,7 +165,8 @@
                 </StackPanel>
                 <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
                     <TextBlock Text="音域范围：" />
-                    <TextBlock Text="{Binding SelectedMidiFile.MinNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
+                    <TextBlock
+                        Text="{Binding SelectedMidiFile.MinNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
                     <hc:RangeSlider Width="100"
                                     VerticalAlignment="Center"
                                     Background="LightGray"
@@ -171,7 +174,8 @@
                                     Minimum="21"
                                     ValueEnd="{Binding SelectedMidiFile.MaxNoteLevel}"
                                     ValueStart="{Binding SelectedMidiFile.MinNoteLevel}" />
-                    <TextBlock Text="{Binding SelectedMidiFile.MaxNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
+                    <TextBlock
+                        Text="{Binding SelectedMidiFile.MaxNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
                 </StackPanel>
                 <TextBlock Margin="0,10,0,0" FontSize="16" Text="音轨信息" />
             </StackPanel>
@@ -207,11 +211,13 @@
                                                 <TextBlock Text="可演奏音符数：" />
                                                 <TextBlock Width="50" Text="{Binding CanPlayNoteNumber}" />
                                                 <TextBlock VerticalAlignment="Center" Text="命中率：" />
-                                                <TextBlock VerticalAlignment="Center" Text="{Binding CanPlayNoteRadio, StringFormat=P1}" />
+                                                <TextBlock VerticalAlignment="Center"
+                                                           Text="{Binding CanPlayNoteRadio, StringFormat=P1}" />
                                             </StackPanel>
                                             <StackPanel Margin="0,4,0,0" Orientation="Horizontal">
                                                 <TextBlock Text="音域范围：" />
-                                                <TextBlock Text="{Binding MinNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
+                                                <TextBlock
+                                                    Text="{Binding MinNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
                                                 <hc:RangeSlider Width="100"
                                                                 VerticalAlignment="Center"
                                                                 Background="LightGray"
@@ -219,7 +225,8 @@
                                                                 Minimum="21"
                                                                 ValueEnd="{Binding MaxNoteLevel}"
                                                                 ValueStart="{Binding MinNoteLevel}" />
-                                                <TextBlock Text="{Binding MaxNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
+                                                <TextBlock
+                                                    Text="{Binding MaxNoteLevel, Converter={StaticResource NoteNumberToNoteStringConverter}}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -233,7 +240,6 @@
 
             </hc:ScrollViewer>
         </Grid>
-
 
 
         <!--  进度条栏  -->
@@ -251,7 +257,8 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="{TemplateBinding Background}" BorderThickness="0">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          RecognizesAccessKey="True" />
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -263,7 +270,8 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ToggleButton">
                                     <Border Background="{TemplateBinding Background}" BorderThickness="0">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          RecognizesAccessKey="True" />
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -309,9 +317,11 @@
                                 VerticalAlignment="Bottom"
                                 DockPanel.Dock="Right"
                                 Orientation="Horizontal">
-                        <TextBlock Text="{Binding Value, ElementName=Slider_Play, Converter={StaticResource MilliSecondToTimeConverter}}" />
+                        <TextBlock
+                            Text="{Binding Value, ElementName=Slider_Play, Converter={StaticResource MilliSecondToTimeConverter}}" />
                         <TextBlock Text=" / " />
-                        <TextBlock Text="{Binding Maximum, ElementName=Slider_Play, Converter={StaticResource MilliSecondToTimeConverter}}" />
+                        <TextBlock
+                            Text="{Binding Maximum, ElementName=Slider_Play, Converter={StaticResource MilliSecondToTimeConverter}}" />
                     </StackPanel>
 
                     <TextBlock Margin="10,0,0,0" VerticalAlignment="Bottom" Text="{Binding Name}" />

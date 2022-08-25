@@ -5,74 +5,69 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 using KeqingNiuza.Service;
 
-namespace KeqingNiuza.Model
+namespace KeqingNiuza.Model;
+
+public class UserData : INotifyPropertyChanged, IEquatable<UserData>
 {
-    public class UserData : INotifyPropertyChanged, IEquatable<UserData>
+    private string _Avatar;
+
+
+    private DateTime _LastUpdateTime;
+    public int Uid { get; set; }
+
+    public string Url { get; set; }
+
+    [JsonIgnore] public string WishLogFile => $"{Const.UserDataPath}\\WishLog_{Uid}.json";
+
+    public DateTime LastUpdateTime
     {
-        public int Uid { get; set; }
-
-        public string Url { get; set; }
-
-        [JsonIgnore]
-        public string WishLogFile => $"{Const.UserDataPath}\\WishLog_{Uid}.json";
-
-
-        private DateTime _LastUpdateTime;
-        public DateTime LastUpdateTime
+        get => _LastUpdateTime;
+        set
         {
-            get { return _LastUpdateTime; }
-            set
-            {
-                _LastUpdateTime = value;
-                OnPropertyChanged();
-            }
+            _LastUpdateTime = value;
+            OnPropertyChanged();
         }
+    }
 
-        private string _Avatar;
-        public string Avatar
+    public string Avatar
+    {
+        get
         {
-            get
-            {
-                if (File.Exists(_Avatar))
-                {
-                    return _Avatar;
-                }
-                else
-                {
-                    return "resource\\embed\\Paimon.png";
-                }
-            }
-            set
-            {
-                _Avatar = value;
-                OnPropertyChanged();
-            }
+            if (File.Exists(_Avatar))
+                return _Avatar;
+            return "resource\\embed\\Paimon.png";
         }
-
-
-        public bool IgnoreFirstStar5Character { get; set; }
-
-
-        public bool IgnoreFirstStar5Weapon { get; set; }
-
-
-        public bool IgnoreFirstStar5Permanent { get; set; }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _Avatar = value;
+            OnPropertyChanged();
         }
+    }
 
-        public bool Equals(UserData other)
-        {
-            return Uid == other.Uid;
-        }
 
-        public override int GetHashCode()
-        {
-            return Uid.GetHashCode();
-        }
+    public bool IgnoreFirstStar5Character { get; set; }
+
+
+    public bool IgnoreFirstStar5Weapon { get; set; }
+
+
+    public bool IgnoreFirstStar5Permanent { get; set; }
+
+    public bool Equals(UserData other)
+    {
+        return Uid == other.Uid;
+    }
+
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public override int GetHashCode()
+    {
+        return Uid.GetHashCode();
     }
 }

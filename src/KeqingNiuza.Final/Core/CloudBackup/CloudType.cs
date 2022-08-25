@@ -1,7 +1,6 @@
-﻿namespace KeqingNiuza.Core.CloudBackup
+﻿namespace KeqingNiuza.Core.CloudBackup;
+
+public enum CloudType
 {
-    public enum CloudType
-    {
-        WebDav
-    }
+    WebDav
 }

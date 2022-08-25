@@ -6,216 +6,202 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Input;
 using HandyControl.Controls;
+using KeqingNiuza.Properties;
 using KeqingNiuza.Service;
 
-namespace KeqingNiuza.View
+namespace KeqingNiuza.View;
+
+/// <summary>
+///     SettingView.xaml 的交互逻辑
+/// </summary>
+public partial class SettingView : UserControl, INotifyPropertyChanged
 {
-    /// <summary>
-    /// SettingView.xaml 的交互逻辑
-    /// </summary>
-    public partial class SettingView : UserControl, INotifyPropertyChanged
+    private bool _DailyCheck_IsAutoCheckIn = Settings.Default.DailyCheck_IsAutoCheckIn;
+
+
+    private TimeSpan _DailyCheck_RandomDelay = Settings.Default.DailyCheck_RandomDelay;
+
+
+    private DateTime _DailyCheck_StartTime = Settings.Default.DailyCheck_StartTime;
+
+
+    private bool _DialyCheck_AlwaysShowResult = Settings.Default.DialyCheck_AlwaysShowResult;
+
+
+    public SettingView()
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        InitializeComponent();
+    }
+
+    public bool IsAdmin => ScheduleTask.IsAdmin();
+
+
+    public bool IsLogonTrigger
+    {
+        get => Settings.Default.IsLogonTrigger;
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-        public SettingView()
-        {
-            InitializeComponent();
-        }
-
-        public bool IsAdmin => ScheduleTask.IsAdmin();
-
-
-        public bool IsLogonTrigger
-        {
-            get => Properties.Settings.Default.IsLogonTrigger;
-            set
+            if (ChangeScheduleTask(value, IsGenshinStartTrigger))
             {
-                if (ChangeScheduleTask(value, IsGenshinStartTrigger))
-                {
-                    Properties.Settings.Default.IsLogonTrigger = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsGenshinStartTrigger
-        {
-            get => Properties.Settings.Default.IsGenshinStartTrigger;
-            set
-            {
-                if (ChangeScheduleTask(IsLogonTrigger, value))
-                {
-                    Properties.Settings.Default.IsGenshinStartTrigger = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsOversea
-        {
-            get => Properties.Settings.Default.IsOversea;
-            set
-            {
-                Properties.Settings.Default.IsOversea = value;
+                Settings.Default.IsLogonTrigger = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-
-
-
-        private bool _DailyCheck_IsAutoCheckIn = Properties.Settings.Default.DailyCheck_IsAutoCheckIn;
-        public bool DailyCheck_IsAutoCheckIn
+    public bool IsGenshinStartTrigger
+    {
+        get => Settings.Default.IsGenshinStartTrigger;
+        set
         {
-            get { return _DailyCheck_IsAutoCheckIn; }
-            set
+            if (ChangeScheduleTask(IsLogonTrigger, value))
             {
-                _DailyCheck_IsAutoCheckIn = value;
+                Settings.Default.IsGenshinStartTrigger = value;
                 OnPropertyChanged();
             }
         }
+    }
 
-
-        private DateTime _DailyCheck_StartTime = Properties.Settings.Default.DailyCheck_StartTime;
-        public DateTime DailyCheck_StartTime
+    public bool IsOversea
+    {
+        get => Settings.Default.IsOversea;
+        set
         {
-            get { return _DailyCheck_StartTime; }
-            set
-            {
-                _DailyCheck_StartTime = value;
-                OnPropertyChanged();
-            }
+            Settings.Default.IsOversea = value;
+            OnPropertyChanged();
         }
+    }
 
-
-        private TimeSpan _DailyCheck_RandomDelay = Properties.Settings.Default.DailyCheck_RandomDelay;
-        public TimeSpan DailyCheck_RandomDelay
+    public bool DailyCheck_IsAutoCheckIn
+    {
+        get => _DailyCheck_IsAutoCheckIn;
+        set
         {
-            get { return _DailyCheck_RandomDelay; }
-            set
-            {
-                _DailyCheck_RandomDelay = value;
-                OnPropertyChanged();
-            }
+            _DailyCheck_IsAutoCheckIn = value;
+            OnPropertyChanged();
         }
+    }
 
-
-
-        private bool _DialyCheck_AlwaysShowResult = Properties.Settings.Default.DialyCheck_AlwaysShowResult;
-        public bool DialyCheck_AlwaysShowResult
+    public DateTime DailyCheck_StartTime
+    {
+        get => _DailyCheck_StartTime;
+        set
         {
-            get { return _DialyCheck_AlwaysShowResult; }
-            set
-            {
-                _DialyCheck_AlwaysShowResult = value;
-                OnPropertyChanged();
-            }
+            _DailyCheck_StartTime = value;
+            OnPropertyChanged();
         }
+    }
 
-
-        public bool IsDownloadWallpaper
+    public TimeSpan DailyCheck_RandomDelay
+    {
+        get => _DailyCheck_RandomDelay;
+        set
         {
-            get
-            {
-                return File.Exists($"{Const.UserDataPath}\\setting_wallpaper");
-            }
-            set
-            {
-                if (value)
-                {
-                    Directory.CreateDirectory(Const.UserDataPath);
-                    File.Create($"{Const.UserDataPath}\\setting_wallpaper").Dispose();
-                }
-                else
-                {
-                    if (File.Exists($"{Const.UserDataPath}\\setting_wallpaper"))
-                    {
-                        File.Delete($"{Const.UserDataPath}\\setting_wallpaper");
-                    }
-                }
-                OnPropertyChanged();
-            }
+            _DailyCheck_RandomDelay = value;
+            OnPropertyChanged();
         }
+    }
 
-
-
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+    public bool DialyCheck_AlwaysShowResult
+    {
+        get => _DialyCheck_AlwaysShowResult;
+        set
         {
-            var link = sender as Hyperlink;
-            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+            _DialyCheck_AlwaysShowResult = value;
+            OnPropertyChanged();
         }
+    }
 
 
-
-        private bool ChangeScheduleTask(bool logon, bool genshinstart)
+    public bool IsDownloadWallpaper
+    {
+        get => File.Exists($"{Const.UserDataPath}\\setting_wallpaper");
+        set
         {
-            try
+            if (value)
             {
-                TaskTrigger trigger = TaskTrigger.None;
-                if (logon)
-                {
-                    trigger = trigger | TaskTrigger.Logon;
-                }
-                if (genshinstart)
-                {
-                    trigger = trigger | TaskTrigger.GenshinStart;
-                }
-                ScheduleTask.AddTask(trigger);
-                return true;
+                Directory.CreateDirectory(Const.UserDataPath);
+                File.Create($"{Const.UserDataPath}\\setting_wallpaper").Dispose();
             }
-            catch (UnauthorizedAccessException)
+            else
             {
-                Growl.Warning("权限不足");
-                return false;
+                if (File.Exists($"{Const.UserDataPath}\\setting_wallpaper"))
+                    File.Delete($"{Const.UserDataPath}\\setting_wallpaper");
             }
-            catch (Exception ex)
-            {
-                Growl.Warning(ex.Message);
-                Log.OutputLog(LogType.Warning, "ChangeScheduleTask", ex);
-                return false;
-            }
+
+            OnPropertyChanged();
         }
+    }
 
-      
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        private void Button_DailyCheckSave_Click(object sender, RoutedEventArgs e)
+    private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+
+    private void Hyperlink_Click(object sender, RoutedEventArgs e)
+    {
+        var link = sender as Hyperlink;
+        Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
+    }
+
+
+    private bool ChangeScheduleTask(bool logon, bool genshinstart)
+    {
+        try
         {
-            try
-            {
-                DailyCheckTask.AddTask(DailyCheck_IsAutoCheckIn, DailyCheck_StartTime, DailyCheck_RandomDelay);
-                Properties.Settings.Default.DailyCheck_IsAutoCheckIn = DailyCheck_IsAutoCheckIn;
-                Properties.Settings.Default.DailyCheck_StartTime = DailyCheck_StartTime;
-                Properties.Settings.Default.DailyCheck_RandomDelay = DailyCheck_RandomDelay;
-                Properties.Settings.Default.DialyCheck_AlwaysShowResult = DialyCheck_AlwaysShowResult;
-                Growl.Success("保存成功");
-            }
-            catch (Exception ex)
-            {
-                Growl.Warning(ex.Message);
-                Log.OutputLog(LogType.Warning, "DailyCheckSettingSave", ex);
-            }
+            var trigger = TaskTrigger.None;
+            if (logon) trigger = trigger | TaskTrigger.Logon;
+            if (genshinstart) trigger = trigger | TaskTrigger.GenshinStart;
+            ScheduleTask.AddTask(trigger);
+            return true;
         }
-
-    
-
-        private void Button_RealtimeNotes_Click(object sender, RoutedEventArgs e)
+        catch (UnauthorizedAccessException)
         {
-            try
-            {
-                Process.Start("KeqingNiuza.RealtimeNotes.exe");
-            }
-            catch (Exception ex)
-            {
-                Log.OutputLog(LogType.Warning, "Run realtimeNotes", ex);
-                Growl.Warning(ex.Message);
-            }
+            Growl.Warning("权限不足");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Growl.Warning(ex.Message);
+            Log.OutputLog(LogType.Warning, "ChangeScheduleTask", ex);
+            return false;
+        }
+    }
+
+
+    private void Button_DailyCheckSave_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DailyCheckTask.AddTask(DailyCheck_IsAutoCheckIn, DailyCheck_StartTime, DailyCheck_RandomDelay);
+            Settings.Default.DailyCheck_IsAutoCheckIn = DailyCheck_IsAutoCheckIn;
+            Settings.Default.DailyCheck_StartTime = DailyCheck_StartTime;
+            Settings.Default.DailyCheck_RandomDelay = DailyCheck_RandomDelay;
+            Settings.Default.DialyCheck_AlwaysShowResult = DialyCheck_AlwaysShowResult;
+            Growl.Success("保存成功");
+        }
+        catch (Exception ex)
+        {
+            Growl.Warning(ex.Message);
+            Log.OutputLog(LogType.Warning, "DailyCheckSettingSave", ex);
+        }
+    }
+
+
+    private void Button_RealtimeNotes_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Process.Start("KeqingNiuza.RealtimeNotes.exe");
+        }
+        catch (Exception ex)
+        {
+            Log.OutputLog(LogType.Warning, "Run realtimeNotes", ex);
+            Growl.Warning(ex.Message);
         }
     }
 }

@@ -5,79 +5,79 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace KeqingNiuza.View
+namespace KeqingNiuza.View;
+
+/// <summary>
+///     WelcomeView.xaml 的交互逻辑
+/// </summary>
+public partial class WelcomeView : UserControl, INotifyPropertyChanged
 {
-    /// <summary>
-    /// WelcomeView.xaml 的交互逻辑
-    /// </summary>
-    public partial class WelcomeView : UserControl, INotifyPropertyChanged
+    private double _DownloadSize;
+
+    private string _DownloadState;
+
+
+    private int _FileCount;
+
+    private int _HasDownload;
+
+
+    public WelcomeView()
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        InitializeComponent();
+    }
+
+    public int FileCount
+    {
+        get => _FileCount;
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _FileCount = value;
+            OnPropertyChanged();
         }
+    }
 
-
-        public WelcomeView()
+    public int HasDownload
+    {
+        get => _HasDownload;
+        set
         {
-            InitializeComponent();
+            _HasDownload = value;
+            OnPropertyChanged();
         }
+    }
 
-
-        private int _FileCount;
-        public int FileCount
+    public double DownloadSize
+    {
+        get => _DownloadSize;
+        set
         {
-            get { return _FileCount; }
-            set
-            {
-                _FileCount = value;
-                OnPropertyChanged();
-            }
+            _DownloadSize = value;
+            OnPropertyChanged();
         }
+    }
 
-        private int _HasDownload;
-        public int HasDownload
+    public string DownloadState
+    {
+        get => _DownloadState;
+        set
         {
-            get { return _HasDownload; }
-            set
-            {
-                _HasDownload = value;
-                OnPropertyChanged();
-            }
+            _DownloadState = value;
+            OnPropertyChanged();
         }
+    }
 
-        private double _DownloadSize;
-        public double DownloadSize
-        {
-            get { return _DownloadSize; }
-            set
-            {
-                _DownloadSize = value;
-                OnPropertyChanged();
-            }
-        }
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        private string _DownloadState;
-        public string DownloadState
-        {
-            get { return _DownloadState; }
-            set
-            {
-                _DownloadState = value;
-                OnPropertyChanged();
-            }
-        }
+    private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
 
-
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
-        {
-            var link = sender as Hyperlink;
-            Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
-        }
-
-
-
+    private void Hyperlink_Click(object sender, RoutedEventArgs e)
+    {
+        var link = sender as Hyperlink;
+        Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri));
     }
 }

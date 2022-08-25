@@ -1,21 +1,21 @@
 ﻿using System;
 using System.IO;
 
-namespace KeqingNiuza.Core.CloudBackup
+namespace KeqingNiuza.Core.CloudBackup;
+
+internal class BackupFileinfo
 {
-    class BackupFileinfo
+    public BackupFileinfo(FileInfo fileInfo)
     {
-        public string Name { get; set; }
-
-        public DateTime LastUpdateTime { get; set; }
-
-        public BackupFileinfo(FileInfo fileInfo)
-        {
-            Name = fileInfo.Name;
-            LastUpdateTime = fileInfo.LastWriteTime;
-        }
-
-        public BackupFileinfo() { }
-
+        Name = fileInfo.Name;
+        LastUpdateTime = fileInfo.LastWriteTime;
     }
+
+    public BackupFileinfo()
+    {
+    }
+
+    public string Name { get; set; }
+
+    public DateTime LastUpdateTime { get; set; }
 }

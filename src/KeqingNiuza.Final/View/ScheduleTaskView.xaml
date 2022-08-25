@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:c="clr-namespace:KeqingNiuza.Converter"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -51,7 +50,8 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="Button">
                                     <Border Background="Transparent" BorderThickness="0">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                          RecognizesAccessKey="True" />
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -67,8 +67,10 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid>
-                                            <TextBlock Text="{Binding RemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}" Visibility="{Binding TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=CountdownFixedTime}" />
-                                            <StackPanel Orientation="Horizontal" Visibility="{Binding TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Recovery}">
+                                            <TextBlock Text="{Binding RemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}"
+                                                       Visibility="{Binding TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=CountdownFixedTime}" />
+                                            <StackPanel Orientation="Horizontal"
+                                                        Visibility="{Binding TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Recovery}">
                                                 <TextBlock Text="{Binding CurrentValue}" />
                                                 <TextBlock Text="/" />
                                                 <TextBlock Text="{Binding MaxValue}" />
@@ -110,7 +112,8 @@
                                                       Fill="Black"
                                                       Stretch="Uniform" />
                                             </Button>
-                                            <Button x:Name="Button_MoveNext" Margin="10,0,0,0" Click="Button_MoveNext_Click">
+                                            <Button x:Name="Button_MoveNext" Margin="10,0,0,0"
+                                                    Click="Button_MoveNext_Click">
                                                 <Path Height="16"
                                                       Data="{StaticResource Down}"
                                                       Fill="Black"
@@ -141,7 +144,8 @@
         <StackPanel Grid.Column="1" Margin="20,10,10,10">
             <TextBlock FontSize="20" Text="任务详情" />
 
-            <StackPanel Visibility="{Binding SelectedScheduleInfo, Converter={StaticResource Object2VisibilityConverter}}">
+            <StackPanel
+                Visibility="{Binding SelectedScheduleInfo, Converter={StaticResource Object2VisibilityConverter}}">
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <TextBlock Width="100" VerticalAlignment="Center" Text="名称：" />
                     <TextBox Width="200" Text="{Binding SelectedScheduleInfo.Name}" />
@@ -164,22 +168,27 @@
                                  Tag="Replenish" />
                 </StackPanel>
 
-                <StackPanel Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Countdown}">
+                <StackPanel
+                    Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Countdown}">
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="提醒间隔：" />
-                        <TextBox Width="200" Text="{Binding SelectedScheduleInfo.Interval, StringFormat='d\\.hh\\:mm\\:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedScheduleInfo.Interval, StringFormat='d\\.hh\\:mm\\:ss'}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="剩余时间：" />
-                        <TextBox Width="200" Text="{Binding SelectedInfoRemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedInfoRemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="下一次提醒时间：" />
-                        <TextBox Width="200" Text="{Binding SelectedInfoNextTriggerTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedInfoNextTriggerTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Recovery}">
+                <StackPanel
+                    Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=Recovery}">
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="最大值：" />
                         <TextBox Width="200" Text="{Binding SelectedScheduleInfo.MaxValue}" />
@@ -199,25 +208,30 @@
                             Value="{Binding SelectedInfoCurrentValue}" />
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="恢复满时间：" />
-                        <TextBox Width="200" Text="{Binding SelectedInfoNextMaxValueTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedInfoNextMaxValueTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=FixedTime}">
+                <StackPanel
+                    Visibility="{Binding SelectedScheduleInfo.TriggerType, Mode=OneWay, Converter={StaticResource TriggerTypeToVisibilityConverter}, ConverterParameter=FixedTime}">
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="固定时间：" />
                         <TextBlock Margin="0,0,4,0" VerticalAlignment="Center" Text="重置后第" />
                         <TextBox Width="40" Text="{Binding SelectedScheduleInfo.Custom_DelayDay}" />
                         <TextBlock Margin="4,0,4,0" VerticalAlignment="Center" Text="天的" />
-                        <TextBox Width="80" Text="{Binding SelectedScheduleInfo.Custom_TriggerTime, StringFormat='HH:mm:ss'}" />
+                        <TextBox Width="80"
+                                 Text="{Binding SelectedScheduleInfo.Custom_TriggerTime, StringFormat='HH:mm:ss'}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="剩余时间：" />
-                        <TextBox Width="200" Text="{Binding SelectedInfoRemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedInfoRemainingTime, StringFormat='d\\.hh\\:mm\\:ss'}" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Width="100" VerticalAlignment="Center" Text="下一次提醒时间：" />
-                        <TextBox Width="200" Text="{Binding SelectedInfoNextTriggerTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                        <TextBox Width="200"
+                                 Text="{Binding SelectedInfoNextTriggerTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
                     </StackPanel>
                 </StackPanel>
 

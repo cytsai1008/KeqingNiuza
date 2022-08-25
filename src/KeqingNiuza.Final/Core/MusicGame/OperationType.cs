@@ -1,14 +1,12 @@
-﻿namespace KeqingNiuza.Core.MusicGame
+﻿namespace KeqingNiuza.Core.MusicGame;
+
+public enum OperationType
 {
-    public enum OperationType
-    {
-        None,
+    None,
 
-        KeyDown,
+    KeyDown,
 
-        KeyUp,
+    KeyUp,
 
-        KeyDownUp,
-    }
-
+    KeyDownUp
 }

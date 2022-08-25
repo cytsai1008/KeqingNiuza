@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Name="UserControl_WishAchievement"
              d:DesignHeight="450"
@@ -12,10 +11,10 @@
              DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
              Loaded="UserControl_WishAchievement_Loaded"
              mc:Ignorable="d">
-    
+
     <UserControl.Resources>
         <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="12" />
         </Style>
     </UserControl.Resources>
 
@@ -81,7 +80,8 @@
                                         <RowDefinition />
                                         <RowDefinition Height="22" />
                                     </Grid.RowDefinitions>
-                                    <Image Grid.RowSpan="3" Source="/resource/embed/achievement_show.png" Visibility="{Binding IsFinished, Converter={StaticResource Boolean2VisibilityConverter}}" />
+                                    <Image Grid.RowSpan="3" Source="/resource/embed/achievement_show.png"
+                                           Visibility="{Binding IsFinished, Converter={StaticResource Boolean2VisibilityConverter}}" />
                                     <TextBlock Grid.Row="2"
                                                HorizontalAlignment="Center"
                                                VerticalAlignment="Center"
@@ -116,7 +116,7 @@
                                 </Grid>
 
                                 <!--  中间介绍  -->
-                                <StackPanel Grid.RowSpan="2" Margin="20,0,20,0" VerticalAlignment="Center">
+                                <StackPanel Margin="20,0,20,0" VerticalAlignment="Center">
                                     <TextBlock Margin="0,0,0,2"
                                                FontSize="16"
                                                FontWeight="Bold"
@@ -127,15 +127,15 @@
                                                FontWeight="Bold"
                                                Foreground="#B7A18C"
                                                Text="{Binding Description}" />
-                                    <TextBlock Grid.Row="1"
-                                               Margin="0,2,0,0"
-                                               VerticalAlignment="Center"
-                                               FontFamily="楷体,微软雅黑"
-                                               FontSize="14"
-                                               FontWeight="Black"
-                                               Foreground="#B7A18C"
-                                               Text="{Binding Comment}"
-                                               Visibility="{Binding Comment, Converter={StaticResource Object2VisibilityConverter}}" />
+                                    <TextBlock
+                                        Margin="0,2,0,0"
+                                        VerticalAlignment="Center"
+                                        FontFamily="楷体,微软雅黑"
+                                        FontSize="14"
+                                        FontWeight="Black"
+                                        Foreground="#B7A18C"
+                                        Text="{Binding Comment}"
+                                        Visibility="{Binding Comment, Converter={StaticResource Object2VisibilityConverter}}" />
                                 </StackPanel>
 
                             </DockPanel>

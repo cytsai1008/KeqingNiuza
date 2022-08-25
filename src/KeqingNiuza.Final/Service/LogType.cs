@@ -1,11 +1,10 @@
-﻿namespace KeqingNiuza.Service
+﻿namespace KeqingNiuza.Service;
+
+internal enum LogType
 {
-    enum LogType
-    {
-        None,
-        Info,
-        Warning,
-        Error,
-        Fault
-    }
+    None,
+    Info,
+    Warning,
+    Error,
+    Fault
 }

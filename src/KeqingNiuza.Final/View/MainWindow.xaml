@@ -4,7 +4,6 @@
         xmlns:ce="urn:controlzex"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:hc="https://handyorg.github.io/handycontrol"
-        xmlns:local="clr-namespace:KeqingNiuza.View"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Name="Window_Main"
         Title="刻记牛杂店"
@@ -277,9 +276,6 @@
         </DockPanel>
 
 
-
-
-
         <!--  个人信息、云备份、三大金刚  -->
         <StackPanel Grid.Row="0"
                     Grid.Column="1"
@@ -442,7 +438,8 @@
                         <TextBlock Margin="0,5,0,0"
                                    Foreground="Gray"
                                    Text="最后更新数据的时间" />
-                        <TextBlock Margin="0,5,0,0" Text="{Binding SelectedUserData.LastUpdateTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                        <TextBlock Margin="0,5,0,0"
+                                   Text="{Binding SelectedUserData.LastUpdateTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
                         <TextBlock Margin="0,5,0,0"
                                    Foreground="Gray"
                                    Text="{Binding LoadWishDataProgress}" />
@@ -499,14 +496,17 @@
                                                          Height="30"
                                                          Stroke="Gray">
                                                     <Ellipse.Fill>
-                                                        <ImageBrush ImageSource="{Binding Avatar, Converter={StaticResource ImageConverter}}" />
+                                                        <ImageBrush
+                                                            ImageSource="{Binding Avatar, Converter={StaticResource ImageConverter}}" />
                                                     </Ellipse.Fill>
                                                 </Ellipse>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding Uid}" Header="Uid" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding LastUpdateTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" Header="最后更新时间" />
+                                    <GridViewColumn
+                                        DisplayMemberBinding="{Binding LastUpdateTime, StringFormat='yyyy-MM-dd HH:mm:ss'}"
+                                        Header="最后更新时间" />
                                     <GridViewColumn Width="28">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -563,7 +563,8 @@
                         <RowDefinition />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="10,10,0,0" Visibility="{Binding CloudClient.IsJianguo, Converter={StaticResource Boolean2VisibilityReConverter}}">
+                    <StackPanel Margin="10,10,0,0"
+                                Visibility="{Binding CloudClient.IsJianguo, Converter={StaticResource Boolean2VisibilityReConverter}}">
                         <TextBlock Text="WebDav" />
                         <TextBlock Text="{Binding CloudClient.WebDavUrl}" />
                     </StackPanel>
@@ -591,7 +592,8 @@
                                    HorizontalAlignment="Left"
                                    Foreground="Gray"
                                    Text="最后备份时间" />
-                        <TextBlock HorizontalAlignment="Left" Text="{Binding CloudClient.LastSyncTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
+                        <TextBlock HorizontalAlignment="Left"
+                                   Text="{Binding CloudClient.LastSyncTime, StringFormat='yyyy-MM-dd HH:mm:ss'}" />
 
                     </StackPanel>
                     <UniformGrid Grid.Row="2"

@@ -1,7 +1,6 @@
-﻿namespace KeqingNiuza.Model
+﻿namespace KeqingNiuza.Model;
+
+internal class ExtensionSetting
 {
-    internal class ExtensionSetting
-    {
-        public bool EnableHoyolabCheckin { get; set; }
-    }
+    public bool EnableHoyolabCheckin { get; set; }
 }

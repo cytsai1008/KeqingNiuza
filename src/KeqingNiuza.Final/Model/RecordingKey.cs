@@ -1,16 +1,13 @@
-﻿namespace KeqingNiuza.View
+﻿namespace KeqingNiuza.View;
+
+public partial class MusicGameView
 {
-    public partial class MusicGameView
+    private class RecordingKey
     {
-        class RecordingKey
-        {
-            public long Time { get; set; }
+        public long Time { get; set; }
 
-            public int Operation { get; set; }
+        public int Operation { get; set; }
 
-            public int Key { get; set; }
-        }
-
-
+        public int Key { get; set; }
     }
 }

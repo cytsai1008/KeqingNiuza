@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using KeqingNiuza.Core.Wish;
 
-namespace KeqingNiuza.Model
+namespace KeqingNiuza.Model;
+
+internal class WishlogModel
 {
-    internal class WishlogModel
-    {
-        public int Uid { get; set; }
+    public int Uid { get; set; }
 
 
-        public string Url { get; set; }
+    public string Url { get; set; }
 
 
-        public long LastId { get; set; }
+    public long LastId { get; set; }
 
 
-        public IEnumerable<WishData> List { get; set; }
-    }
+    public IEnumerable<WishData> List { get; set; }
 }

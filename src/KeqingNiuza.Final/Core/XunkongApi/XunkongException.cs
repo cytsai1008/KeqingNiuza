@@ -1,25 +1,18 @@
-﻿using ControlzEx.Standard;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace KeqingNiuza.Core.XunkongApi
+namespace KeqingNiuza.Core.XunkongApi;
+
+internal class XunkongException : Exception
 {
-    internal class XunkongException : Exception
+    public XunkongException()
     {
-
-        public int Code { get; private set; }
-
-
-        public XunkongException() { }
-
-
-        public XunkongException(int code, string message = null) : base(message)
-        {
-            Code = code;
-        }
-
     }
+
+
+    public XunkongException(int code, string message = null) : base(message)
+    {
+        Code = code;
+    }
+
+    public int Code { get; }
 }

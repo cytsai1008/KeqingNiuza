@@ -1,14 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace KeqingNiuza.Core.Wish;
 
-namespace KeqingNiuza.Core.Wish
+public class WeaponInfo : ItemInfo
 {
-    public class WeaponInfo : ItemInfo
-    {
+    public WeaponType WeaponType { get; set; }
 
-
-        public WeaponType WeaponType { get; set; }
-
-        public override string ItemType { get; set; } = "武器";
-
-    }
+    public override string ItemType { get; set; } = "武器";
 }

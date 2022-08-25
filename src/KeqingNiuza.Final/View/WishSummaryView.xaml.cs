@@ -8,82 +8,72 @@ using KeqingNiuza.Model;
 using KeqingNiuza.Service;
 using KeqingNiuza.ViewModel;
 
-namespace KeqingNiuza.View
+namespace KeqingNiuza.View;
+
+/// <summary>
+///     WishSummaryView.xaml 的交互逻辑
+/// </summary>
+public partial class WishSummaryView : UserControl
 {
-    /// <summary>
-    /// WishSummaryView.xaml 的交互逻辑
-    /// </summary>
-    public partial class WishSummaryView : UserControl
+    public WishSummaryView()
     {
-
-        public WishSummaryViewModel ViewModel { get; set; }
-        public UserData UserData { get; set; }
-
-
-        public WishSummaryView()
+        InitializeComponent();
+        UserData = MainWindowViewModel.GetSelectedUserData();
+        if (UserData == null || MainWindowViewModel.WishDataList == null || MainWindowViewModel.WishDataList.Count == 0)
         {
-            InitializeComponent();
-            UserData = MainWindowViewModel.GetSelectedUserData();
-            if (UserData == null || MainWindowViewModel.WishDataList == null || MainWindowViewModel.WishDataList.Count == 0)
+            if (UserData == null)
+                throw new NullReferenceException("未設置個人信息");
+            throw new NullReferenceException($"Uid{UserData.Uid}没有祈愿数据");
+        }
+    }
+
+    public WishSummaryViewModel ViewModel { get; set; }
+    public UserData UserData { get; set; }
+
+    private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (ViewModel == null)
             {
-                if (UserData == null)
-                {
-                    throw new NullReferenceException("未設置個人信息");
-                }
-                else
-                {
-                    throw new NullReferenceException($"Uid{UserData.Uid}没有祈愿数据");
-                }
+                await Task.Run(() => ViewModel = new WishSummaryViewModel(UserData));
+                DataContext = ViewModel;
             }
         }
-
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        catch (Exception ex)
         {
-            try
-            {
-                if (ViewModel == null)
-                {
-                    await Task.Run(() => ViewModel = new WishSummaryViewModel(UserData));
-                    DataContext = ViewModel;
-                }
-            }
-            catch (Exception ex)
-            {
-                Growl.Warning(ex.Message);
-                Log.OutputLog(LogType.Warning, "SelectedUserData_Changed", ex);
-            }
-
+            Growl.Warning(ex.Message);
+            Log.OutputLog(LogType.Warning, "SelectedUserData_Changed", ex);
         }
+    }
 
-        private void CharacterOrderRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadioButton;
-            var str = button.Content as string;
-            ViewModel.CharacterOrder(str);
-        }
+    private void CharacterOrderRadioButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as RadioButton;
+        var str = button.Content as string;
+        ViewModel.CharacterOrder(str);
+    }
 
-        private void WeaponOrderRadioButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadioButton;
-            var str = button.Content as string;
-            ViewModel.WeaponOrder(str);
-        }
+    private void WeaponOrderRadioButton_Click(object sender, RoutedEventArgs e)
+    {
+        var button = sender as RadioButton;
+        var str = button.Content as string;
+        ViewModel.WeaponOrder(str);
+    }
 
-        private void Button_Detail_Click(object sender, RoutedEventArgs e)
-        {
-            var tag = (sender as Button).Tag;
-            ViewModel.ShowDetailView(tag as string);
-        }
+    private void Button_Detail_Click(object sender, RoutedEventArgs e)
+    {
+        var tag = (sender as Button).Tag;
+        ViewModel.ShowDetailView(tag as string);
+    }
 
-        private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var grid = sender as Grid;
-            ViewModel.ShowDetailView(grid.DataContext);
-        }
+    private void Grid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    {
+        var grid = sender as Grid;
+        ViewModel.ShowDetailView(grid.DataContext);
+    }
 
-        private void ContentPresenter_Error(object sender, ValidationErrorEventArgs e)
-        {
-
-        }
+    private void ContentPresenter_Error(object sender, ValidationErrorEventArgs e)
+    {
     }
 }

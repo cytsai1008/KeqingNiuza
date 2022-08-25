@@ -4,7 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:lc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Margin="12"
              d:DesignHeight="450"
@@ -13,7 +12,7 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -30,7 +29,7 @@
                 </ComboBox>
                 <Button Margin="12,0,0,0" Click="Button_Click" Content="预测" />
             </StackPanel>
-            <TextBlock Margin="0 4 0 0" Text="祈愿概率模型基于20万条数据拟合而得，与实际概率有偏差，预测结果仅供参考。"/>
+            <TextBlock Margin="0 4 0 0" Text="祈愿概率模型基于20万条数据拟合而得，与实际概率有偏差，预测结果仅供参考。" />
         </StackPanel>
 
         <lc:CartesianChart Grid.Row="1"

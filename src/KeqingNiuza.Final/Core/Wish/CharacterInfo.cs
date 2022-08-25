@@ -1,13 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace KeqingNiuza.Core.Wish;
 
-namespace KeqingNiuza.Core.Wish
+public class CharacterInfo : ItemInfo
 {
-    public class CharacterInfo : ItemInfo
-    {
+    public ElementType ElementType { get; set; }
 
-        public ElementType ElementType { get; set; }
-
-        public override string ItemType { get; set; } = "角色";
-
-    }
+    public override string ItemType { get; set; } = "角色";
 }

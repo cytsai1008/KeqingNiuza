@@ -2,31 +2,29 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
 
-namespace KeqingNiuza.Core.Wish
+namespace KeqingNiuza.Core.Wish;
+
+public class ImportedWishData : WishData, INotifyPropertyChanged
 {
-    public class ImportedWishData : WishData, INotifyPropertyChanged
+    private string _Comment;
+
+    [JsonIgnore] public bool IsError { get; set; }
+
+    [JsonIgnore]
+    public string Comment
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        get => _Comment;
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _Comment = value;
+            OnPropertyChanged();
         }
+    }
 
-        [JsonIgnore]
-        public bool IsError { get; set; }
+    public event PropertyChangedEventHandler PropertyChanged;
 
-
-        private string _Comment;
-        [JsonIgnore]
-        public string Comment
-        {
-            get { return _Comment; }
-            set
-            {
-                _Comment = value;
-                OnPropertyChanged();
-            }
-        }
-
+    private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

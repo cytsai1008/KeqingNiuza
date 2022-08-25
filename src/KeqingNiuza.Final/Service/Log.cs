@@ -2,44 +2,46 @@
 using System.IO;
 using static KeqingNiuza.Service.Const;
 
-namespace KeqingNiuza.Service
+namespace KeqingNiuza.Service;
+
+internal static class Log
 {
-    static class Log
+    public static bool EnableLog { get; set; } = true;
+
+    internal static void OutputLog(LogType type, Exception ex)
     {
-        public static bool EnableLog { get; set; } = true;
-
-        internal static void OutputLog(LogType type, Exception ex)
+        if (EnableLog)
         {
-            if (EnableLog)
-            {
-                Directory.CreateDirectory(LogPath);
-                var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
-                var str = $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}]\n{ex}\n\n";
-                File.AppendAllText(fileName, str);
-            }
+            Directory.CreateDirectory(LogPath);
+            var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
+            var str =
+                $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}]\n{ex}\n\n";
+            File.AppendAllText(fileName, str);
         }
+    }
 
 
-        internal static void OutputLog(LogType type, string content)
+    internal static void OutputLog(LogType type, string content)
+    {
+        if (EnableLog)
         {
-            if (EnableLog)
-            {
-                Directory.CreateDirectory(LogPath);
-                var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
-                var str = $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}]\n{content}\n\n";
-                File.AppendAllText(fileName, str);
-            }
+            Directory.CreateDirectory(LogPath);
+            var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
+            var str =
+                $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}]\n{content}\n\n";
+            File.AppendAllText(fileName, str);
         }
+    }
 
-        internal static void OutputLog(LogType type, string step, Exception ex)
+    internal static void OutputLog(LogType type, string step, Exception ex)
+    {
+        if (EnableLog)
         {
-            if (EnableLog)
-            {
-                Directory.CreateDirectory(LogPath);
-                var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
-                var str = $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}] [{step}]\n{ex}\n\n";
-                File.AppendAllText(fileName, str);
-            }
+            Directory.CreateDirectory(LogPath);
+            var fileName = $@"{LogPath}\\keqing-{DateTime.Now:yyMMdd}.txt";
+            var str =
+                $"[{type}] [{DateTime.Now:yy-MM-dd HH:mm:ss.fff} | KeqingNiuza {FileVersion} | {UserId}] [{step}]\n{ex}\n\n";
+            File.AppendAllText(fileName, str);
         }
     }
 }

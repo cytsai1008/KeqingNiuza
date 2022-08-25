@@ -4,44 +4,40 @@ using System.Runtime.CompilerServices;
 using KeqingNiuza.Core.Wish;
 using KeqingNiuza.Model;
 
-namespace KeqingNiuza.ViewModel
+namespace KeqingNiuza.ViewModel;
+
+public class WishAchievementViewModel : INotifyPropertyChanged
 {
-    public class WishAchievementViewModel : INotifyPropertyChanged
+    private List<AchievementInfo> _AchievementInfoList;
+
+
+    public WishAchievementViewModel(UserData userData)
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        var analyzer = new AchievementAnalyzer(userData.WishLogFile);
+        AchievementInfoList = analyzer.AchievementList;
+    }
+
+
+    public WishAchievementViewModel()
+    {
+        var analyzer = new AchievementAnalyzer(MainWindowViewModel.WishDataList);
+        AchievementInfoList = analyzer.AchievementList;
+    }
+
+    public List<AchievementInfo> AchievementInfoList
+    {
+        get => _AchievementInfoList;
+        set
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _AchievementInfoList = value;
+            OnPropertyChanged();
         }
+    }
 
+    public event PropertyChangedEventHandler PropertyChanged;
 
-
-        public WishAchievementViewModel(UserData userData)
-        {
-            var analyzer = new AchievementAnalyzer(userData.WishLogFile);
-            AchievementInfoList = analyzer.AchievementList;
-        }
-
-
-        public WishAchievementViewModel()
-        {
-            var analyzer = new AchievementAnalyzer(MainWindowViewModel.WishDataList);
-            AchievementInfoList = analyzer.AchievementList;
-        }
-
-
-
-        private List<AchievementInfo> _AchievementInfoList;
-        public List<AchievementInfo> AchievementInfoList
-        {
-            get { return _AchievementInfoList; }
-            set
-            {
-                _AchievementInfoList = value;
-                OnPropertyChanged();
-            }
-        }
-
-
+    private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

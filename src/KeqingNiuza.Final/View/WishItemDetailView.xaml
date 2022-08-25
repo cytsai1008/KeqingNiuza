@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -88,7 +87,8 @@
                                     CornerRadius="0 0 20 0"
                                     RenderOptions.BitmapScalingMode="HighQuality">
                                 <Border.Background>
-                                    <ImageBrush ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
+                                    <ImageBrush
+                                        ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
                                 </Border.Background>
                             </Border>
                             <TextBlock Height="18"
@@ -138,9 +138,9 @@
 
             <hc:ScrollViewer Grid.Column="2" IsInertiaEnabled="True">
                 <StackPanel Margin="0,0,20,0">
-                    <TextBlock Grid.Column="1"
-                               FontSize="20"
-                               Text="{Binding SelectedItemInfo.Name}" />
+                    <TextBlock
+                        FontSize="20"
+                        Text="{Binding SelectedItemInfo.Name}" />
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock Foreground="Gray" Text="{Binding StartTime, StringFormat=yyyy/MM/dd}" />
                         <TextBlock Foreground="Gray" Text=" - " />
@@ -224,7 +224,9 @@
                                     <Style x:Key="Expand" TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Collapsed" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}" Value="True">
+                                            <DataTrigger
+                                                Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}"
+                                                Value="True">
                                                 <Setter Property="Visibility" Value="Visible" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -232,7 +234,9 @@
                                     <Style x:Key="UnExpand" TargetType="TextBlock">
                                         <Setter Property="Visibility" Value="Visible" />
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}" Value="True">
+                                            <DataTrigger
+                                                Binding="{Binding IsExpanded, RelativeSource={RelativeSource AncestorType=Expander}}"
+                                                Value="True">
                                                 <Setter Property="Visibility" Value="Collapsed" />
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -260,7 +264,8 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Width="140" Text="{Binding Time, StringFormat=yyyy/MM/dd HH:mm:ss}" />
+                                            <TextBlock Width="140"
+                                                       Text="{Binding Time, StringFormat=yyyy/MM/dd HH:mm:ss}" />
                                             <TextBlock Width="70" Text="{Binding GuaranteeType}" />
                                             <TextBlock Width="50" Text="{Binding Guarantee}" />
                                             <TextBlock Width="50" Text="{Binding IsUp}" />
@@ -301,7 +306,6 @@
                         <TextBlock VerticalAlignment="Center" Text="Up角色或武器" />
                     </StackPanel>
                     <ListBox x:Name="ListBox_RelativeEvent"
-                             Grid.Row="1"
                              BorderThickness="0"
                              IsHitTestVisible="False"
                              ItemsSource="{Binding RelativeEventList}">
@@ -312,7 +316,8 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel Width="{Binding Width, ElementName=ListBox_RelativeEvent}" Orientation="Horizontal">
+                                    <StackPanel Width="{Binding Width, ElementName=ListBox_RelativeEvent}"
+                                                Orientation="Horizontal">
                                         <TextBlock Width="180"
                                                    VerticalAlignment="Center"
                                                    Text="{Binding EventName}" />

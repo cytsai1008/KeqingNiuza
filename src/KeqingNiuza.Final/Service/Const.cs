@@ -5,52 +5,48 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using Microsoft.Win32;
 
-namespace KeqingNiuza.Service
+namespace KeqingNiuza.Service;
+
+internal class Const
 {
-    internal class Const
+    private static string userId;
+
+
+    private static string fileVersion;
+
+    public static JsonSerializerOptions JsonOptions { get; } = new()
+        {AllowTrailingCommas = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true};
+
+    public static string UserDataPath { get; } = ".\\UserData";
+
+    public static string LogPath { get; } = ".\\Log";
+
+    public static string UserId
     {
-        public static JsonSerializerOptions JsonOptions { get; } = new JsonSerializerOptions() { AllowTrailingCommas = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = true };
-
-        public static string UserDataPath { get; } = ".\\UserData";
-
-        public static string LogPath { get; } = ".\\Log";
-
-        private static string userId;
-
-        public static string UserId
+        get
         {
-            get
-            {
-                if (userId != null)
-                {
-                    return userId;
-                }
-                var UserName = Environment.UserName;
-                var MachineGuid = Microsoft.Win32.Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\", "MachineGuid", UserName);
-                var bytes = Encoding.UTF8.GetBytes(UserName + MachineGuid);
-                var hash = MD5.Create().ComputeHash(bytes);
-                userId = BitConverter.ToString(hash).Replace("-", "");
-                return userId;
-            }
+            if (userId != null) return userId;
+            var UserName = Environment.UserName;
+            var MachineGuid = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\", "MachineGuid",
+                UserName);
+            var bytes = Encoding.UTF8.GetBytes(UserName + MachineGuid);
+            var hash = MD5.Create().ComputeHash(bytes);
+            userId = BitConverter.ToString(hash).Replace("-", "");
+            return userId;
         }
+    }
 
-
-        private static string fileVersion;
-
-        public static string FileVersion
+    public static string FileVersion
+    {
+        get
         {
-            get
-            {
-                if (fileVersion != null)
-                {
-                    return fileVersion;
-                }
-                var name = typeof(Const).Assembly.Location;
-                var v = FileVersionInfo.GetVersionInfo(name);
-                fileVersion = v.FileVersion;
-                return fileVersion;
-            }
+            if (fileVersion != null) return fileVersion;
+            var name = typeof(Const).Assembly.Location;
+            var v = FileVersionInfo.GetVersionInfo(name);
+            fileVersion = v.FileVersion;
+            return fileVersion;
         }
     }
 }

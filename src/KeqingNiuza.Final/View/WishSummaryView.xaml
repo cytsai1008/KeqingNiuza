@@ -4,8 +4,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:kc="clr-namespace:KeqingNiuza.Control"
-             xmlns:lc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             xmlns:local="clr-namespace:KeqingNiuza.View"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DataContext="{Binding ViewModel, RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450"
@@ -95,7 +93,8 @@
     </UserControl.Resources>
 
     <Grid>
-        <hc:ScrollViewer IsInertiaEnabled="True" Visibility="{Binding Visibility, ElementName=LoadingCircle, Converter={StaticResource ReVisibilityConverter}}">
+        <hc:ScrollViewer IsInertiaEnabled="True"
+                         Visibility="{Binding Visibility, ElementName=LoadingCircle, Converter={StaticResource ReVisibilityConverter}}">
             <StackPanel Margin="20,10,20,10">
                 <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
                     <TextBlock FontSize="24"
@@ -160,7 +159,8 @@
                                 <TextBlock Margin="4,0,0,0"
                                            Style="{StaticResource GuaranteeText}"
                                            Text="{Binding GuaranteeType}" />
-                                <TextBlock Style="{StaticResource GuaranteeText}" Text="{Binding Guarantee, StringFormat=' {0} '}" />
+                                <TextBlock Style="{StaticResource GuaranteeText}"
+                                           Text="{Binding Guarantee, StringFormat=' {0} '}" />
                                 <TextBlock Style="{StaticResource GuaranteeText}" Text="抽" />
                             </StackPanel>
                             <ProgressBar Width="150"
@@ -202,9 +202,12 @@
                                     <TextBlock Foreground="CornflowerBlue" Text="{Binding Star3Count, Mode=OneTime}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="3" Margin="6,0,0,0">
-                                    <TextBlock Foreground="Orange" Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="DarkOrchid" Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="CornflowerBlue" Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="Orange"
+                                               Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="DarkOrchid"
+                                               Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="CornflowerBlue"
+                                               Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
                                 </StackPanel>
                             </Grid>
                             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
@@ -375,7 +378,8 @@
                                 <TextBlock Margin="4,0,0,0"
                                            Style="{StaticResource GuaranteeText}"
                                            Text="{Binding GuaranteeType}" />
-                                <TextBlock Style="{StaticResource GuaranteeText}" Text="{Binding Guarantee, StringFormat=' {0} '}" />
+                                <TextBlock Style="{StaticResource GuaranteeText}"
+                                           Text="{Binding Guarantee, StringFormat=' {0} '}" />
                                 <TextBlock Style="{StaticResource GuaranteeText}" Text="抽" />
                             </StackPanel>
                             <ProgressBar Width="150"
@@ -417,9 +421,12 @@
                                     <TextBlock Foreground="CornflowerBlue" Text="{Binding Star3Count, Mode=OneTime}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="3" Margin="6,0,0,0">
-                                    <TextBlock Foreground="Orange" Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="DarkOrchid" Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="CornflowerBlue" Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="Orange"
+                                               Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="DarkOrchid"
+                                               Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="CornflowerBlue"
+                                               Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
                                 </StackPanel>
                             </Grid>
                             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
@@ -590,7 +597,8 @@
                                 <TextBlock Margin="4,0,0,0"
                                            Style="{StaticResource GuaranteeText}"
                                            Text="{Binding GuaranteeType}" />
-                                <TextBlock Style="{StaticResource GuaranteeText}" Text="{Binding Guarantee, StringFormat=' {0} '}" />
+                                <TextBlock Style="{StaticResource GuaranteeText}"
+                                           Text="{Binding Guarantee, StringFormat=' {0} '}" />
                                 <TextBlock Style="{StaticResource GuaranteeText}" Text="抽" />
                             </StackPanel>
                             <ProgressBar Width="150"
@@ -632,9 +640,12 @@
                                     <TextBlock Foreground="CornflowerBlue" Text="{Binding Star3Count, Mode=OneTime}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="3" Margin="6,0,0,0">
-                                    <TextBlock Foreground="Orange" Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="DarkOrchid" Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
-                                    <TextBlock Foreground="CornflowerBlue" Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="Orange"
+                                               Text="{Binding Ratio5, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="DarkOrchid"
+                                               Text="{Binding Ratio4, Mode=OneTime, StringFormat='[{0:P3}]'}" />
+                                    <TextBlock Foreground="CornflowerBlue"
+                                               Text="{Binding Ratio3, Mode=OneTime, StringFormat='[{0:P3}]'}" />
                                 </StackPanel>
                             </Grid>
                             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
@@ -824,7 +835,8 @@
                                         CornerRadius="0 0 20 0"
                                         RenderOptions.BitmapScalingMode="HighQuality">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
+                                        <ImageBrush
+                                            ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
                                     </Border.Background>
                                 </Border>
                                 <TextBlock Height="18"
@@ -915,7 +927,8 @@
                                         CornerRadius="0 0 20 0"
                                         RenderOptions.BitmapScalingMode="HighQuality">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
+                                        <ImageBrush
+                                            ImageSource="{Binding Thumb, Converter={StaticResource ImageConverter}}" />
                                     </Border.Background>
                                 </Border>
                                 <TextBlock Height="18"

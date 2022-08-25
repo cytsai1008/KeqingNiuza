@@ -1,97 +1,91 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace KeqingNiuza.Core.DailyCheck
+namespace KeqingNiuza.Core.DailyCheck;
+
+public class Program
 {
-    public class Program
+    public static Action<string> PrintLog { get; set; }
+
+    public static async Task Checkin(string[] args)
     {
+        PrintLog("开始签到");
 
-        public static Action<string> PrintLog { get; set; }
+        if (args.Length <= 0) throw new InvalidOperationException("获取参数不对");
 
-        public static async Task Checkin(string[] args)
+        try
         {
-            PrintLog("开始签到");
+            var cookieString = string.Join(" ", args);
 
-            if (args.Length <= 0)
+            var cookies = cookieString.Split('#');
+
+            var accountNum = 0;
+
+            foreach (var cookie in cookies)
             {
-                throw new InvalidOperationException("获取参数不对");
-            }
+                accountNum++;
 
-            try
-            {
+                PrintLog($"开始签到 账号{accountNum}");
 
+                var client = new GenShinClient(
+                    cookie);
 
-                var cookieString = string.Join(" ", args);
+                var rolesResult =
+                    await client.GetExecuteRequest<UserGameRolesEntity>(Config.GetUserGameRolesByCookie,
+                        "game_biz=hk4e_cn");
 
-                var cookies = cookieString.Split('#');
+                //检查第一步获取账号信息
+                rolesResult.CheckOutCodeAndSleep();
 
-                int accountNum = 0;
+                var accountBindCount = rolesResult.Data.List.Count;
 
-                foreach (var cookie in cookies)
+                PrintLog($"账号{accountNum}绑定了{accountBindCount}个角色");
+
+                for (var i = 0; i < accountBindCount; i++)
                 {
-                    accountNum++;
+                    PrintLog(rolesResult.Data.List[i].ToString());
 
-                    PrintLog($"开始签到 账号{accountNum}");
+                    var roles = rolesResult.Data.List[i];
 
-                    var client = new GenShinClient(
-                        cookie);
+                    var signDayResult = await client.GetExecuteRequest<SignDayEntity>(Config.GetBbsSignRewardInfo,
+                        $"act_id={Config.ActId}&region={roles.Region}&uid={roles.GameUid}");
 
-                    var rolesResult =
-                        await client.GetExecuteRequest<UserGameRolesEntity>(Config.GetUserGameRolesByCookie,
-                            "game_biz=hk4e_cn");
+                    //检查第二步是否签到
+                    signDayResult.CheckOutCodeAndSleep();
 
-                    //检查第一步获取账号信息
-                    rolesResult.CheckOutCodeAndSleep();
+                    PrintLog(signDayResult.Data.ToString());
 
-                    int accountBindCount = rolesResult.Data.List.Count;
-
-                    PrintLog($"账号{accountNum}绑定了{accountBindCount}个角色");
-
-                    for (int i = 0; i < accountBindCount; i++)
+                    var data = new
                     {
-                        PrintLog(rolesResult.Data.List[i].ToString());
+                        act_id = Config.ActId,
+                        region = roles.Region,
+                        uid = roles.GameUid
+                    };
 
-                        var roles = rolesResult.Data.List[i];
+                    var signClient = new GenShinClient(cookie, true);
 
-                        var signDayResult = await client.GetExecuteRequest<SignDayEntity>(Config.GetBbsSignRewardInfo,
-                            $"act_id={Config.ActId}&region={roles.Region}&uid={roles.GameUid}");
+                    var result =
+                        await signClient.PostExecuteRequest<SignResultEntity>(Config.PostSignInfo,
+                            jsonContent: new JsonContent(data));
 
-                        //检查第二步是否签到
-                        signDayResult.CheckOutCodeAndSleep();
+                    PrintLog(result.CheckOutCodeAndSleep());
 
-                        PrintLog(signDayResult.Data.ToString());
-
-                        var data = new
-                        {
-                            act_id = Config.ActId,
-                            region = roles.Region,
-                            uid = roles.GameUid
-                        };
-
-                        var signClient = new GenShinClient(cookie, true);
-
-                        var result =
-                            await signClient.PostExecuteRequest<SignResultEntity>(Config.PostSignInfo,
-                                jsonContent: new JsonContent(data));
-
-                        PrintLog(result.CheckOutCodeAndSleep());
-                        
-                        await Task.Delay(1000);
-                    }
+                    await Task.Delay(1000);
                 }
             }
-            catch (GenShinException e)
-            {
-                PrintLog($"请求接口时出现异常：{e.Message}");
-                throw;
-            }
-            catch (System.Exception e)
-            {
-                PrintLog($"出现意料以外的异常：{e}");
-                throw;
-            }
-            //抛出异常主动构建失败
-            PrintLog("签到结束");
         }
+        catch (GenShinException e)
+        {
+            PrintLog($"请求接口时出现异常：{e.Message}");
+            throw;
+        }
+        catch (Exception e)
+        {
+            PrintLog($"出现意料以外的异常：{e}");
+            throw;
+        }
+
+        //抛出异常主动构建失败
+        PrintLog("签到结束");
     }
 }
