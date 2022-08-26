@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace KeqingNiuza.Core.Wish;
@@ -20,6 +21,9 @@ public class WishLogExporter
     {
         if (url.StartsWith("https://") && (url.EndsWith(@"hk4e_global") || url.EndsWith(@"#/log")))
         {
+            const string langPattern = @"&lang=[^&]+";
+            // capture regex and replace lang text into "zh-cn"
+            url = Regex.Replace(url, langPattern, "&lang=zh-cn");
             authString = url.Substring(url.IndexOf('?')).Replace("#/log", "");
             HttpClient = new HttpClient();
             if (url.Contains("webstatic-sea"))
