@@ -20,7 +20,7 @@ public class WishLogExporter
     {
         if (url.StartsWith("https://") && (url.EndsWith(@"hk4e_global") || url.EndsWith(@"#/log")))
         {
-            url.Replace(url.Substring(url.IndexOf("&lang=" + 6),url.IndexOf("&devuce_type=") - url.IndexOf("&lang=" + 6)), "zh-cn");
+            url = url.Replace(url.Substring(url.IndexOf("&lang=") + 6, url.IndexOf("&device_type=") - (url.IndexOf("&lang=") + 6)), "zh-cn");
             authString = url.Substring(url.IndexOf('?')).Replace("#/log", "");
             HttpClient = new HttpClient();
             if (url.Contains("webstatic-sea"))
