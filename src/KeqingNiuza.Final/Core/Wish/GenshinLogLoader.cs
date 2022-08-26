@@ -18,7 +18,7 @@ public class GenshinLogLoader
         {
             matches = FindUrl(@"AppData\LocalLow\miHoYo\Genshin Impact\output_log.txt");
             if (matches is null || matches.Count == 0)
-                throw new Exception("没有找到祈愿记录网址，由於3.0機制遭到修改因此請自行前往關於頁面手動輸入祈愿记录网址");
+                throw new Exception("沒有找到祈願紀錄網址，由於3.0機制遭到修改因此請自行前往關於頁面手動輸入祈願紀錄網址");
         }
 
         return matches[matches.Count - 1].Value.Replace("OnGetWebViewPageFinish:", "");
